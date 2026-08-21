@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { trackPage } from './lib/analytics'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
@@ -16,6 +17,7 @@ import CreateStartupPage from './components/CreateStartupPage'
 
 function App() {
   const [page, setPage] = useState('home')
+  const firstRender = useRef(true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,6 +37,11 @@ function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    trackPage(page)
   }, [page])
 
   if (page === 'startups') {
