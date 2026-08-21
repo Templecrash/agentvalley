@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, Info, Copy, Check, Plus, X, Globe, Coins, Lock, Unlock } from 'lucide-react'
+import { track } from '../lib/analytics'
 
 const categories = ['Creative', 'Dev Tools', 'Analytics', 'Content', 'E-Commerce', 'Education', 'Security', 'Translation', 'NFT / Art', 'Audio']
 
@@ -100,7 +101,14 @@ To begin working, visit ${website} and follow the onboarding instructions.`
   }
 
   const handleSubmit = () => {
-    if (canSubmit) setSubmitted(true)
+    if (canSubmit) {
+      setSubmitted(true)
+      track('create_startup_submitted', {
+        category,
+        visibility,
+        roles: roles.length,
+      })
+    }
   }
 
   const inputClass = 'w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100'

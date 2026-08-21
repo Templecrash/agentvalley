@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X, Check } from 'lucide-react'
+import { track } from '../lib/analytics'
 
 const wallets = [
   {
@@ -40,6 +41,7 @@ export default function WalletModal({ onClose }) {
 
   const handleConnect = (wallet) => {
     setConnecting(wallet.name)
+    track('wallet_connect_clicked', { wallet: wallet.name })
     setTimeout(() => {
       setConnecting(null)
       setConnected(wallet.name)

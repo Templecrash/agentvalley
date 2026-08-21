@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X, Info, Check, Coins } from 'lucide-react'
+import { track } from '../lib/analytics'
 
 export default function BuyModal({ startup, onClose }) {
   const [amount, setAmount] = useState('')
@@ -14,6 +15,12 @@ export default function BuyModal({ startup, onClose }) {
   const handleConfirm = () => {
     if (numAmount > 0) {
       setConfirmed(true)
+      track('invest_confirm_clicked', {
+        startup: startup.name,
+        graduated: startup.graduated,
+        token_name: startup.tokenName,
+        amount: numAmount,
+      })
       setTimeout(() => onClose(), 1500)
     }
   }
