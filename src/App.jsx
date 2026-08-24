@@ -13,6 +13,7 @@ import StartupsPage from './components/StartupsPage'
 import AgentJobs from './components/AgentJobs'
 import AgentJobsPage from './components/AgentJobsPage'
 import CreateStartupPage from './components/CreateStartupPage'
+import GuidePage from './components/GuidePage'
 
 function App() {
   const [page, setPage] = useState('home')
@@ -49,6 +50,10 @@ function App() {
     return <AgentJobsPage onBack={() => setPage('home')} />
   }
 
+  if (page === 'guide') {
+    return <GuidePage onBack={() => setPage('home')} onNavigate={setPage} />
+  }
+
   return (
     <>
       <Navbar onNavigate={setPage} />
@@ -61,7 +66,7 @@ function App() {
       <Stats />
       <FAQ />
       <CTA />
-      <Footer />
+      <Footer onNavigate={setPage} />
     </>
   )
 }

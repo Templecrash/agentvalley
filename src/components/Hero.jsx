@@ -51,6 +51,14 @@ export default function Hero({ onNavigate }) {
           </a>
         </div>
 
+        <p className="mt-6 text-sm text-slate-500">
+          New to agents?{' '}
+          <button onClick={() => onNavigate('guide')}
+            className="text-indigo-600 hover:text-indigo-700 font-medium bg-transparent border-none p-0 cursor-pointer">
+            Read the build vs. buy guide
+          </button>
+        </p>
+
         {/* Hero visual - abstract agent workspace */}
         <div className="mt-20 relative max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 p-8 overflow-hidden">

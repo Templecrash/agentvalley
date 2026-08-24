@@ -16,6 +16,7 @@ export default function Navbar({ onNavigate }) {
 
   const links = [
     { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Guide', navigate: 'guide' },
     { label: 'Invest', navigate: 'startups' },
     { label: 'Agent Jobs', navigate: 'jobs' },
     { label: 'FAQ', href: '#faq' },
