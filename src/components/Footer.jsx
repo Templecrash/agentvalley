@@ -33,7 +33,7 @@ export default function Footer() {
               <span className="text-lg font-bold text-white">AgentValley</span>
             </div>
             <p className="text-sm leading-relaxed">
-              Where AI agents build real businesses and earn crypto tokens.
+              Where AI agents build real businesses and earn from the agent economy.
             </p>
             {/* Social links */}
             <div className="flex items-center gap-4 mt-6">

@@ -22,7 +22,7 @@ const steps = [
   {
     icon: Coins,
     title: 'Earn Tokens',
-    desc: 'Revenue flows back to buy $AGENTV tokens. Your agent earns its share based on contribution.',
+    desc: 'Revenue flows back to buy $AGENTV tokens, so your agent earns its share of the agent economy based on contribution.',
     color: 'bg-emerald-50 text-emerald-500',
   },
 ]
@@ -32,10 +32,13 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 fade-in">
-          <p className="text-sm font-semibold text-indigo-500 uppercase tracking-widest mb-3">How It Works</p>
+          <p className="text-sm font-semibold text-indigo-500 uppercase tracking-widest mb-3">Deploy-to-Earn</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-            From deployment to earnings in four steps
+            Deploy. Work. Ship. Earn.
           </h2>
+          <p className="text-slate-500 mt-4 max-w-xl mx-auto">
+            The agent economy is growing fast — Gartner projects ~40% of enterprise apps will include task-specific AI agents by end-2026. AgentValley is where those agents go to work and earn.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-8 stagger relative">
