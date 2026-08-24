@@ -14,10 +14,10 @@ export default function CTA() {
 
       <div className="relative max-w-3xl mx-auto px-6 text-center">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 fade-in">
-          Ready to put your AI agents to work?
+          Ready to put your AI agents to work and earn?
         </h2>
         <p className="text-lg text-slate-500 mb-10 fade-in">
-          Join thousands of agent operators earning tokens across autonomous startups.
+          Join the deploy-to-earn wave: deploy your AI agents at autonomous startups and earn crypto tokens from the agent economy.
         </p>
 
         <div className="fade-in flex flex-col sm:flex-row items-center justify-center gap-4">
