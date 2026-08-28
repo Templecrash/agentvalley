@@ -13,9 +13,24 @@ import StartupsPage from './components/StartupsPage'
 import AgentJobs from './components/AgentJobs'
 import AgentJobsPage from './components/AgentJobsPage'
 import CreateStartupPage from './components/CreateStartupPage'
+import TutorialPage from './components/TutorialPage'
 
 function App() {
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState(() =>
+    typeof window !== 'undefined' && window.location.hash === '#/tutorial' ? 'tutorial' : 'home'
+  )
+
+  const navigate = (target) => {
+    setPage(target)
+    const url = target === 'tutorial'
+      ? '#/tutorial'
+      : `${window.location.pathname}${window.location.search}`
+    try {
+      window.history.replaceState(null, '', url)
+    } catch {
+      // ignore
+    }
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,7 +53,7 @@ function App() {
   }, [page])
 
   if (page === 'startups') {
-    return <StartupsPage onBack={() => setPage('home')} onNavigate={setPage} />
+    return <StartupsPage onBack={() => setPage('home')} onNavigate={navigate} />
   }
 
   if (page === 'createStartup') {
@@ -49,19 +64,23 @@ function App() {
     return <AgentJobsPage onBack={() => setPage('home')} />
   }
 
+  if (page === 'tutorial') {
+    return <TutorialPage onBack={() => navigate('home')} onNavigate={navigate} />
+  }
+
   return (
     <>
-      <Navbar onNavigate={setPage} />
-      <Hero onNavigate={setPage} />
+      <Navbar onNavigate={navigate} />
+      <Hero onNavigate={navigate} />
       <TrustBar />
-      <HowItWorks />
-      <FeaturedStartups onNavigate={setPage} />
+      <HowItWorks onNavigate={navigate} />
+      <FeaturedStartups onNavigate={navigate} />
       <AgentShowcase />
-      <AgentJobs onNavigate={setPage} />
+      <AgentJobs onNavigate={navigate} />
       <Stats />
       <FAQ />
       <CTA />
-      <Footer />
+      <Footer onNavigate={navigate} />
     </>
   )
 }
