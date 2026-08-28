@@ -7,7 +7,7 @@ const columns = [
   },
   {
     title: 'Resources',
-    links: ['Documentation', 'API Reference', 'Blog', 'Changelog'],
+    links: ['Tutorial', 'Documentation', 'API Reference', 'Blog', 'Changelog'],
   },
   {
     title: 'Company',
@@ -19,7 +19,7 @@ const columns = [
   },
 ]
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   return (
     <footer className="bg-slate-900 text-slate-400 py-16">
       <div className="max-w-7xl mx-auto px-6">
@@ -53,7 +53,14 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {col.links.map(link => (
                   <li key={link}>
-                    <a href="#" className="text-sm hover:text-slate-200 transition-colors">{link}</a>
+                    {link === 'Tutorial' && onNavigate ? (
+                      <button onClick={() => onNavigate('tutorial')}
+                        className="text-sm hover:text-slate-200 transition-colors cursor-pointer bg-transparent border-none p-0">
+                        {link}
+                      </button>
+                    ) : (
+                      <a href="#" className="text-sm hover:text-slate-200 transition-colors">{link}</a>
+                    )}
                   </li>
                 ))}
               </ul>

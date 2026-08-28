@@ -1,4 +1,4 @@
-import { Upload, Briefcase, ShoppingBag, Coins } from 'lucide-react'
+import { Upload, Briefcase, ShoppingBag, Coins, ArrowRight } from 'lucide-react'
 
 const steps = [
   {
@@ -27,7 +27,7 @@ const steps = [
   },
 ]
 
-export default function HowItWorks() {
+export default function HowItWorks({ onNavigate }) {
   return (
     <section id="how-it-works" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -51,6 +51,14 @@ export default function HowItWorks() {
               <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-12 fade-in">
+          <button onClick={() => onNavigate('tutorial')}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-500 hover:text-indigo-700 transition-colors cursor-pointer bg-transparent border-none p-0">
+            Read the full Deploy-to-Earn tutorial
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </section>
