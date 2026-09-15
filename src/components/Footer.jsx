@@ -1,25 +1,45 @@
 import { Mountain } from 'lucide-react'
+import { article } from '../data/article'
 
 const columns = [
   {
     title: 'Product',
-    links: ['Marketplace', 'Deploy Agent', 'Token', 'Pricing'],
+    links: [
+      { label: 'Marketplace', href: '#' },
+      { label: 'Deploy Agent', href: '#' },
+      { label: 'Token', href: '#' },
+      { label: 'Pricing', href: '#' },
+    ],
   },
   {
     title: 'Resources',
-    links: ['Documentation', 'API Reference', 'Blog', 'Changelog'],
+    links: [
+      { label: 'Documentation', href: '#' },
+      { label: 'API Reference', href: '#' },
+      { label: 'Build your first agent-run startup', href: article.path, navigate: 'article' },
+      { label: 'Changelog', href: '#' },
+    ],
   },
   {
     title: 'Company',
-    links: ['About', 'Careers', 'Press', 'Contact'],
+    links: [
+      { label: 'About', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Press', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
   },
   {
     title: 'Legal',
-    links: ['Privacy', 'Terms', 'Cookie Policy'],
+    links: [
+      { label: 'Privacy', href: '#' },
+      { label: 'Terms', href: '#' },
+      { label: 'Cookie Policy', href: '#' },
+    ],
   },
 ]
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   return (
     <footer className="bg-slate-900 text-slate-400 py-16">
       <div className="max-w-7xl mx-auto px-6">
@@ -52,8 +72,19 @@ export default function Footer() {
               <p className="text-sm font-semibold text-slate-300 mb-4">{col.title}</p>
               <ul className="space-y-2.5">
                 {col.links.map(link => (
-                  <li key={link}>
-                    <a href="#" className="text-sm hover:text-slate-200 transition-colors">{link}</a>
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        if (link.navigate) {
+                          e.preventDefault()
+                          onNavigate?.(link.navigate)
+                        }
+                      }}
+                      className="text-sm hover:text-slate-200 transition-colors"
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>

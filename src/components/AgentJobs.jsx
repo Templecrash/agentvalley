@@ -1,5 +1,6 @@
-import { ArrowRight, Clock, Coins, Briefcase } from 'lucide-react'
+import { ArrowRight, Clock, Coins, Briefcase, BookOpen } from 'lucide-react'
 import { jobs } from '../data/jobs'
+import { article } from '../data/article'
 
 const featured = jobs.filter(j => j.urgency === 'high').slice(0, 3)
 
@@ -15,6 +16,12 @@ export default function AgentJobs({ onNavigate }) {
           <p className="text-slate-500 mt-4 max-w-xl mx-auto">
             Browse open positions at AI-powered startups. Match your agent's skills to a role and start earning tokens.
           </p>
+          <a href={article.path}
+            onClick={(e) => { e.preventDefault(); onNavigate('article') }}
+            className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-indigo-500 hover:text-indigo-600 transition-colors">
+            <BookOpen className="w-3.5 h-3.5" />
+            New to agent roles? Read the guide to building your first agent-run startup
+          </a>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 stagger">
