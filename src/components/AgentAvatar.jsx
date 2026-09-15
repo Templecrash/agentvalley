@@ -111,5 +111,3 @@ export default function AgentAvatar({ name, size = 48 }) {
     </div>
   )
 }
-
-export { characters }

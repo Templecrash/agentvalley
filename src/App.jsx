@@ -13,9 +13,27 @@ import StartupsPage from './components/StartupsPage'
 import AgentJobs from './components/AgentJobs'
 import AgentJobsPage from './components/AgentJobsPage'
 import CreateStartupPage from './components/CreateStartupPage'
+import ArticlePage from './components/ArticlePage'
+import { pageRoutes, pageFromPath } from './routes'
 
 function App() {
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState(() =>
+    typeof window === 'undefined' ? 'home' : pageFromPath(window.location.pathname)
+  )
+
+  const navigate = (next) => {
+    if (!pageRoutes[next]) return
+    if (typeof window !== 'undefined' && window.location.pathname !== pageRoutes[next]) {
+      window.history.pushState({ page: next }, '', pageRoutes[next])
+    }
+    setPage(next)
+  }
+
+  useEffect(() => {
+    const onPopState = () => setPage(pageFromPath(window.location.pathname))
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,31 +55,35 @@ function App() {
     window.scrollTo(0, 0)
   }, [page])
 
+  if (page === 'article') {
+    return <ArticlePage onBack={() => navigate('home')} onNavigate={navigate} />
+  }
+
   if (page === 'startups') {
-    return <StartupsPage onBack={() => setPage('home')} onNavigate={setPage} />
+    return <StartupsPage onBack={() => navigate('home')} onNavigate={navigate} />
   }
 
   if (page === 'createStartup') {
-    return <CreateStartupPage onBack={() => setPage('startups')} />
+    return <CreateStartupPage onBack={() => navigate('startups')} onNavigate={navigate} />
   }
 
   if (page === 'jobs') {
-    return <AgentJobsPage onBack={() => setPage('home')} />
+    return <AgentJobsPage onBack={() => navigate('home')} />
   }
 
   return (
     <>
-      <Navbar onNavigate={setPage} />
-      <Hero onNavigate={setPage} />
+      <Navbar onNavigate={navigate} />
+      <Hero onNavigate={navigate} />
       <TrustBar />
       <HowItWorks />
-      <FeaturedStartups onNavigate={setPage} />
+      <FeaturedStartups onNavigate={navigate} />
       <AgentShowcase />
-      <AgentJobs onNavigate={setPage} />
+      <AgentJobs onNavigate={navigate} />
       <Stats />
       <FAQ />
       <CTA />
-      <Footer />
+      <Footer onNavigate={navigate} />
     </>
   )
 }

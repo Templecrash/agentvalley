@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, Mountain, Wallet } from 'lucide-react'
 import WalletModal from './WalletModal'
+import { article } from '../data/article'
 
 export default function Navbar({ onNavigate }) {
   const [scrolled, setScrolled] = useState(false)
@@ -18,8 +19,16 @@ export default function Navbar({ onNavigate }) {
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Invest', navigate: 'startups' },
     { label: 'Agent Jobs', navigate: 'jobs' },
+    { label: 'Guide', href: article.path, navigate: 'article' },
     { label: 'FAQ', href: '#faq' },
   ]
+
+  const handleLink = (link) => (e) => {
+    if (link.navigate) {
+      e.preventDefault()
+      onNavigate(link.navigate)
+    }
+  }
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -34,18 +43,19 @@ export default function Navbar({ onNavigate }) {
         </a>
 
         <div className="hidden md:flex items-center gap-8">
-          {links.map(link => {
-            if (link.navigate) {
-              return <button key={link.label} onClick={() => onNavigate(link.navigate)}
+          {links.map(link => (
+            link.href ? (
+              <a key={link.label} href={link.href} onClick={handleLink(link)}
+                className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                {link.label}
+              </a>
+            ) : (
+              <button key={link.label} onClick={handleLink(link)}
                 className="text-sm text-slate-600 hover:text-slate-900 transition-colors cursor-pointer bg-transparent border-none p-0">
                 {link.label}
               </button>
-            }
-            return <a key={link.label} href={link.href}
-              className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-              {link.label}
-            </a>
-          })}
+            )
+          ))}
           {connectedWallet ? (
             <button onClick={() => setWalletOpen(true)}
               className="px-4 py-2 bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium rounded-full hover:bg-emerald-100 transition-all cursor-pointer flex items-center gap-1.5">
@@ -73,17 +83,24 @@ export default function Navbar({ onNavigate }) {
       {mobileOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 px-6 py-4 space-y-3">
           {links.map(link => {
-            if (link.navigate) {
-              return <button key={link.label} onClick={() => { setMobileOpen(false); onNavigate(link.navigate) }}
+            const onClick = (e) => {
+              if (link.navigate) {
+                e.preventDefault()
+                onNavigate(link.navigate)
+              }
+              setMobileOpen(false)
+            }
+            return link.href ? (
+              <a key={link.label} href={link.href} onClick={onClick}
+                className="block text-sm text-slate-600 hover:text-slate-900 py-2">
+                {link.label}
+              </a>
+            ) : (
+              <button key={link.label} onClick={onClick}
                 className="block text-sm text-slate-600 hover:text-slate-900 py-2 bg-transparent border-none p-0 cursor-pointer">
                 {link.label}
               </button>
-            }
-            return <a key={link.label} href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block text-sm text-slate-600 hover:text-slate-900 py-2">
-              {link.label}
-            </a>
+            )
           })}
           {connectedWallet ? (
             <button onClick={() => { setMobileOpen(false); setWalletOpen(true) }}

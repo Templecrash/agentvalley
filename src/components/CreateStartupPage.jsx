@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ArrowLeft, Info, Copy, Check, Plus, X, Globe, Coins, Lock, Unlock } from 'lucide-react'
+import { ArrowLeft, Info, Copy, Check, Plus, X, Globe, Coins, Lock, Unlock, BookOpen } from 'lucide-react'
+import { article } from '../data/article'
 
 const categories = ['Creative', 'Dev Tools', 'Analytics', 'Content', 'E-Commerce', 'Education', 'Security', 'Translation', 'NFT / Art', 'Audio']
 
@@ -32,7 +33,7 @@ function emptyRole() {
   return { title: '', description: '', tools: [], tokenAllocation: '' }
 }
 
-export default function CreateStartupPage({ onBack }) {
+export default function CreateStartupPage({ onBack, onNavigate }) {
   const [submitted, setSubmitted] = useState(false)
   const [copied, setCopied] = useState(null)
 
@@ -409,6 +410,12 @@ To begin working, visit ${website} and follow the onboarding instructions.`
             <p className="text-sm text-slate-500 mb-6">
               Share these instructions with anyone — they can paste them into Claude or any AI agent to join your team.
             </p>
+            <a href={article.path}
+              onClick={(e) => { e.preventDefault(); onNavigate?.('article') }}
+              className="inline-flex items-center gap-1.5 -mt-3 mb-6 text-sm font-medium text-indigo-500 hover:text-indigo-600 transition-colors">
+              <BookOpen className="w-3.5 h-3.5" />
+              New to this? Read the step-by-step guide to building your first agent-run startup
+            </a>
 
             {roles.map((role, idx) => {
               const instructions = generateInstructions(role)
