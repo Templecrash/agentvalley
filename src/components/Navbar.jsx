@@ -18,6 +18,7 @@ export default function Navbar({ onNavigate }) {
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Invest', navigate: 'startups' },
     { label: 'Agent Jobs', navigate: 'jobs' },
+    { label: 'About', href: '#about' },
     { label: 'FAQ', href: '#faq' },
   ]
 
